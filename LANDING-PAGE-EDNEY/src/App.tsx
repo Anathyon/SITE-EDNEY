@@ -1,10 +1,7 @@
-function App() {
+import LandingPage from "./pages/LandingPage";
 
-  return (
-    <>
-       <h1>Edney</h1>
-    </>
-  )
+function App() {
+  return <LandingPage />;
 }
 
-export default App
+export default App;
