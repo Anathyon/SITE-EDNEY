@@ -2,6 +2,7 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { BadgeCheck } from "lucide-react";
 import { CTAButton } from "./ui";
+import { useBreakpoint } from "../hooks/useBreakpoint";
 
 interface FormState {
   nome: string;
@@ -14,26 +15,68 @@ interface FormState {
 const initialState: FormState = { nome: "", whatsapp: "", email: "", projeto: "", mensagem: "" };
 
 const inputClass =
-  "h-12 w-full rounded-xl border border-white/10 bg-white/[0.04] px-4 text-sm text-white outline-none transition placeholder:text-zinc-500 focus:border-yellow-400/40 focus:bg-white/[0.06] sm:rounded-2xl";
+  "h-12 w-full rounded-xl border border-white/10 bg-white/4 px-4 text-sm text-white outline-none transition placeholder:text-zinc-500 focus:border-yellow-400/40 focus:bg-white/6 sm:rounded-2xl";
 
 export function LeadForm() {
   const [formData, setFormData] = useState<FormState>(initialState);
   const [submitted, setSubmitted] = useState(false);
+  const bp = useBreakpoint();
+
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   const handleChange = (field: keyof FormState, value: string) => {
     setFormData((prev) => ({ ...prev, [field]: value }));
+    if (error) setError(null);
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    setSubmitted(true);
-    setTimeout(() => setSubmitted(false), 4000);
-    setFormData(initialState);
+  const validateForm = () => {
+    if (!formData.nome.trim()) return "O nome é obrigatório.";
+    if (!formData.whatsapp.trim() || formData.whatsapp.length < 10) return "WhatsApp inválido.";
+    if (!formData.email.includes("@")) return "E-mail inválido.";
+    return null;
   };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    const validationError = validateForm();
+    if (validationError) {
+      setError(validationError);
+      return;
+    }
+
+    setLoading(true);
+    setError(null);
+
+    try {
+      // Simulação de chamada de API
+      await new Promise((resolve) => setTimeout(resolve, 1500));
+      
+      setSubmitted(true);
+      setFormData(initialState);
+      setTimeout(() => setSubmitted(false), 5000);
+    } catch (err) {
+      setError("Ocorreu um erro ao enviar sua mensagem. Tente novamente.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // Responsive Styles
+  const formPadding = bp === "none" ? "20px" :
+                      bp === "sm"   ? "24px" :
+                                      "32px";
+  
+  const headerMarginBottom = bp === "none" ? "20px" : "24px";
+  const fieldGap = bp === "none" ? "12px" : "16px";
+  const actionsGap = bp === "none" ? "10px" : "12px";
 
   return (
-    <div className="rounded-2xl border border-white/10 bg-white/[0.04] p-5 sm:rounded-[2.25rem] sm:p-6 md:p-8">
-      <div className="mb-5 sm:mb-6">
+    <div 
+      className="rounded-2xl border border-white/10 bg-white/4 sm:rounded-[2.25rem]"
+      style={{ padding: formPadding }}
+    >
+      <div className="flex flex-col items-center text-center" style={{ marginBottom: headerMarginBottom }}>
         <div className="text-xs font-semibold uppercase tracking-[0.2em] text-yellow-300 sm:tracking-[0.22em]">Solicite contato</div>
         <h3 className="mt-3 text-xl font-black uppercase text-white sm:text-2xl">Fale sobre o seu projeto</h3>
         <p className="mt-2 text-sm leading-7 text-zinc-300 sm:mt-3">Descreva rapidamente o cenário, objetivo e necessidade.</p>
@@ -46,16 +89,28 @@ export function LeadForm() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
-            className="flex min-h-[280px] flex-col items-center justify-center text-center sm:min-h-[340px]"
+            className="flex flex-col items-center justify-center text-center"
+            style={{ minHeight: bp === "none" ? "280px" : "340px" }}
           >
-            <div className="mb-4 flex h-14 w-14 items-center justify-center rounded-full bg-green-500/20 sm:h-16 sm:w-16">
+            <div 
+              className="flex items-center justify-center rounded-full bg-green-500/20"
+              style={{ width: bp === "none" ? "56px" : "64px", height: bp === "none" ? "56px" : "64px", marginBottom: "16px" }}
+            >
               <BadgeCheck className="h-7 w-7 text-green-400 sm:h-8 sm:w-8" />
             </div>
             <h4 className="text-lg font-bold text-white sm:text-xl">Mensagem enviada!</h4>
             <p className="mt-2 text-sm text-zinc-300">Entraremos em contato em breve.</p>
           </motion.div>
         ) : (
-          <motion.form key="form" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} onSubmit={handleSubmit} className="space-y-3 sm:space-y-4">
+          <motion.form 
+            key="form" 
+            initial={{ opacity: 0 }} 
+            animate={{ opacity: 1 }} 
+            exit={{ opacity: 0 }} 
+            onSubmit={handleSubmit} 
+            className="flex flex-col"
+            style={{ gap: fieldGap }}
+          >
             <input
               type="text"
               required
@@ -63,21 +118,62 @@ export function LeadForm() {
               value={formData.nome}
               onChange={(e) => handleChange("nome", e.target.value)}
               className={inputClass}
+              disabled={loading}
             />
-            <div className="grid gap-3 sm:gap-4 sm:grid-cols-2">
-              <input type="text" placeholder="WhatsApp" value={formData.whatsapp} onChange={(e) => handleChange("whatsapp", e.target.value)} className={inputClass} />
-              <input type="email" placeholder="E-mail" value={formData.email} onChange={(e) => handleChange("email", e.target.value)} className={inputClass} />
+            <div 
+              className={`grid ${bp !== "none" ? "sm:grid-cols-2" : ""}`}
+              style={{ gap: fieldGap }}
+            >
+              <input 
+                type="text" 
+                placeholder="WhatsApp" 
+                value={formData.whatsapp} 
+                onChange={(e) => handleChange("whatsapp", e.target.value)} 
+                className={inputClass} 
+                disabled={loading}
+              />
+              <input 
+                type="email" 
+                placeholder="E-mail" 
+                value={formData.email} 
+                onChange={(e) => handleChange("email", e.target.value)} 
+                className={inputClass} 
+                disabled={loading}
+              />
             </div>
-            <input type="text" placeholder="Cidade / projeto / mandato" value={formData.projeto} onChange={(e) => handleChange("projeto", e.target.value)} className={inputClass} />
+            <input 
+              type="text" 
+              placeholder="Cidade / projeto / mandato" 
+              value={formData.projeto} 
+              onChange={(e) => handleChange("projeto", e.target.value)} 
+              className={inputClass} 
+              disabled={loading}
+            />
             <textarea
               placeholder="Descreva seu cenário, necessidade ou objetivo"
               value={formData.mensagem}
               onChange={(e) => handleChange("mensagem", e.target.value)}
-              className="min-h-[100px] w-full rounded-xl border border-white/10 bg-white/[0.04] px-4 py-3 text-sm text-white outline-none transition placeholder:text-zinc-500 focus:border-yellow-400/40 focus:bg-white/[0.06] sm:min-h-[130px] sm:rounded-2xl"
+              className="w-full rounded-xl border border-white/10 bg-white/4 px-4 py-3 text-sm text-white outline-none transition placeholder:text-zinc-500 focus:border-yellow-400/40 focus:bg-white/6 sm:rounded-2xl"
+              style={{ minHeight: bp === "none" ? "100px" : "130px" }}
+              disabled={loading}
             />
-            <div className="flex flex-col gap-2.5 sm:grid sm:grid-cols-2 sm:gap-3">
-              <button type="submit" className="inline-flex h-12 items-center justify-center rounded-full bg-yellow-400 px-5 text-xs font-black uppercase tracking-[0.16em] text-black transition-all hover:bg-yellow-300 hover:shadow-lg hover:shadow-yellow-500/20 sm:px-6 sm:tracking-[0.18em]">
-                Falar sobre meu projeto
+            
+            {error && (
+              <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="text-xs font-semibold text-red-400">
+                {error}
+              </motion.p>
+            )}
+
+            <div 
+              className={`flex flex-col ${bp !== "none" ? "sm:grid sm:grid-cols-2" : ""}`}
+              style={{ gap: actionsGap }}
+            >
+              <button 
+                type="submit" 
+                disabled={loading}
+                className="inline-flex h-12 items-center justify-center rounded-full bg-yellow-400 px-5 text-xs font-black uppercase tracking-[0.16em] text-black transition-all hover:bg-yellow-300 hover:shadow-lg hover:shadow-yellow-500/20 sm:px-6 sm:tracking-[0.18em] disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                {loading ? "Enviando..." : "Falar sobre meu projeto"}
               </button>
               <CTAButton href="#contato" primary={false}>Diagnóstico estratégico</CTAButton>
             </div>

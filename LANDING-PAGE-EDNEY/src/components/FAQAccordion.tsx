@@ -1,42 +1,66 @@
-import { useState, useCallback } from "react";
+import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { ChevronDown } from "lucide-react";
-import { faqData } from "../data/content";
-import { fadeUp } from "../animations";
+import { Plus, Minus } from "lucide-react";
+import { useBreakpoint } from "../hooks/useBreakpoint";
 
-export function FAQAccordion() {
-  const [openIndex, setOpenIndex] = useState<number | null>(null);
-  const toggle = useCallback((i: number) => setOpenIndex((prev) => (prev === i ? null : i)), []);
+interface FAQItem {
+  question: string;
+  answer: string;
+}
+
+export function FAQAccordion({ items }: { items: FAQItem[] }) {
+  const [openIndex, setOpenIndex] = useState<number | null>(0);
+  const bp = useBreakpoint();
+
+  const containerGap = bp === "none" ? "12px" : "16px";
+  const itemPadding = bp === "none" ? "16px 20px" : "20px 24px";
+  const answerPaddingTop = "12px";
 
   return (
-    <motion.div {...fadeUp} className="space-y-2.5">
-      {faqData.map((item, i) => (
-        <div
-          key={i}
-          className={`overflow-hidden rounded-xl border transition-all duration-300 sm:rounded-2xl ${
-            openIndex === i ? "border-yellow-400/30 bg-yellow-400/[0.04]" : "border-white/10 bg-white/[0.03]"
-          }`}
-        >
-          <button type="button" onClick={() => toggle(i)} className="flex w-full items-start gap-3 p-4 text-left sm:gap-4 sm:p-5">
-            <span className="flex-1 text-sm font-semibold leading-relaxed text-white sm:text-base">{item.pergunta}</span>
-            <ChevronDown className={`mt-0.5 h-5 w-5 shrink-0 text-yellow-300 transition-transform duration-300 ${openIndex === i ? "rotate-180" : ""}`} />
-          </button>
-          <AnimatePresence initial={false}>
-            {openIndex === i && (
-              <motion.div
-                key="answer"
-                initial={{ height: 0, opacity: 0 }}
-                animate={{ height: "auto", opacity: 1 }}
-                exit={{ height: 0, opacity: 0 }}
-                transition={{ duration: 0.3, ease: "easeInOut" }}
-                className="overflow-hidden"
-              >
-                <p className="px-4 pb-4 text-sm leading-7 text-zinc-300 sm:px-5 sm:pb-5">{item.resposta}</p>
-              </motion.div>
-            )}
-          </AnimatePresence>
-        </div>
-      ))}
-    </motion.div>
+    <div className="flex flex-col" style={{ gap: containerGap }}>
+      {items.map((item, index) => {
+        const isOpen = openIndex === index;
+        return (
+          <div
+            key={index}
+            className={`overflow-hidden rounded-2xl border transition-all duration-300 ${
+              isOpen ? "border-yellow-400/30 bg-yellow-400/5" : "border-white/10 bg-white/4 hover:bg-white/6"
+            }`}
+          >
+            <button
+              onClick={() => setOpenIndex(isOpen ? null : index)}
+              className="flex w-full items-center justify-between text-left"
+              style={{ padding: itemPadding }}
+            >
+              <span className={`text-sm font-bold uppercase tracking-tight text-white transition-colors duration-300 sm:text-base ${isOpen ? "text-yellow-300" : ""}`}>
+                {item.question}
+              </span>
+              <div className={`flex h-8 w-8 items-center justify-center rounded-full border transition-all duration-300 ${isOpen ? "border-yellow-400/40 bg-yellow-400/10 text-yellow-300" : "border-white/10 bg-white/4 text-zinc-500"}`}>
+                {isOpen ? <Minus className="h-4 w-4" /> : <Plus className="h-4 w-4" />}
+              </div>
+            </button>
+            <AnimatePresence initial={false}>
+              {isOpen && (
+                <motion.div
+                  initial={{ height: 0, opacity: 0 }}
+                  animate={{ height: "auto", opacity: 1 }}
+                  exit={{ height: 0, opacity: 0 }}
+                  transition={{ duration: 0.3, ease: "easeInOut" }}
+                >
+                  <div 
+                    className="text-sm leading-7 text-zinc-400 sm:text-base"
+                    style={{ padding: itemPadding, paddingTop: 0, marginTop: `-${answerPaddingTop}` }}
+                  >
+                    <div style={{ paddingTop: answerPaddingTop }}>
+                      {item.answer}
+                    </div>
+                  </div>
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </div>
+        );
+      })}
+    </div>
   );
 }
