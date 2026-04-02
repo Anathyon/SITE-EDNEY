@@ -26,7 +26,7 @@ export function Eyebrow({ children }: { children: ReactNode }) {
 /* ──── Section Title ──── */
 export function SectionTitle({ eyebrow, title, desc }: { eyebrow: string; title: string; desc?: string }) {
   return (
-    <motion.div {...fadeUp} className="max-w-3xl">
+    <motion.div {...fadeUp} className="mx-auto flex max-w-3xl flex-col items-center text-center">
       <Eyebrow>{eyebrow}</Eyebrow>
       <h2 className="text-2xl font-black uppercase tracking-tight text-white sm:text-3xl md:text-4xl lg:text-5xl">{title}</h2>
       {desc && <p className="mt-4 max-w-2xl text-sm leading-7 text-zinc-300 md:text-base">{desc}</p>}

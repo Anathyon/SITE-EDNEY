@@ -42,8 +42,8 @@ export function TestimonialsCarousel({ items }: { items: Testimonial[] }) {
             transition={{ duration: 0.5, ease: "easeOut" }}
             style={{ padding: cardPadding }}
           >
-            <div className="flex flex-col" style={{ gap: contentGap }}>
-              <div className="flex items-center justify-between">
+            <div className="flex flex-col items-center text-center" style={{ gap: contentGap }}>
+              <div className="flex flex-col items-center" style={{ gap: "16px" }}>
                 <div 
                   className="flex items-center justify-center rounded-2xl bg-yellow-400/10 text-yellow-300"
                   style={{ width: bp === "none" ? "48px" : "56px", height: bp === "none" ? "48px" : "56px" }}
@@ -57,11 +57,11 @@ export function TestimonialsCarousel({ items }: { items: Testimonial[] }) {
                 </div>
               </div>
 
-              <blockquote className="text-lg font-medium leading-relaxed text-white sm:text-xl md:text-2xl">
+              <blockquote className="max-w-2xl text-lg font-medium leading-relaxed text-white sm:text-xl md:text-2xl">
                 "{items[index].content}"
               </blockquote>
 
-              <div className="flex items-center" style={{ gap: authorGap, marginTop: "8px" }}>
+              <div className="flex flex-col items-center" style={{ gap: authorGap, marginTop: "8px" }}>
                 <img 
                   src={items[index].avatar} 
                   alt={items[index].author} 

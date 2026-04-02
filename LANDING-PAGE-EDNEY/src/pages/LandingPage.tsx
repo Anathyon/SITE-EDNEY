@@ -38,13 +38,13 @@ export default function LandingPage() {
   const bp = useBreakpoint();
 
   // Responsive Styles
-  const sectionPadding = bp === "none" ? "64px 16px" :
-                         bp === "sm"   ? "80px 24px" :
-                         bp === "md"   ? "96px 40px" :
-                                         "120px 56px";
+  const sectionPadding = bp === "none" ? "80px 20px" :
+                         bp === "sm"   ? "100px 32px" :
+                         bp === "md"   ? "120px 48px" :
+                                         "160px 64px";
   
-  const containerMarginTop = bp === "none" ? "48px" : "64px";
-  const gridGap = bp === "none" ? "24px" : "32px";
+  const containerMarginTop = bp === "none" ? "64px" : "80px";
+  const gridGap = bp === "none" ? "32px" : "48px";
 
   return (
     <div className="min-h-screen bg-black text-zinc-400 selection:bg-yellow-400/30 selection:text-yellow-200">
@@ -68,7 +68,7 @@ export default function LandingPage() {
               className="grid items-center lg:grid-cols-2"
               style={{ gap: bp === "none" ? "40px" : "64px" }}
             >
-              <motion.div {...fadeUp} className="flex flex-col items-center text-center lg:items-start lg:text-left">
+              <motion.div {...fadeUp} className="flex flex-col items-center text-center">
                 <Eyebrow>Marketing Político & Estratégia</Eyebrow>
                 <h1 className="text-4xl font-black uppercase leading-[0.95] tracking-tighter text-white sm:text-6xl md:text-7xl lg:text-8xl">
                   Vença a <br />
@@ -81,7 +81,7 @@ export default function LandingPage() {
                   mandatos que buscam relevância, autoridade e vitória nas urnas.
                 </p>
                 <div 
-                  className="mt-10 flex flex-col justify-center sm:flex-row lg:justify-start" 
+                  className="mt-10 flex flex-col justify-center sm:flex-row" 
                   style={{ gap: "16px", width: bp === "none" ? "100%" : "auto" }}
                 >
                   <CTAButton href="#contato" primary={true}>
@@ -172,7 +172,7 @@ export default function LandingPage() {
                 />
                 
                 <div 
-                  className="mt-10 flex flex-col"
+                  className="mt-10 flex flex-col items-center"
                   style={{ gap: bp === "none" ? "24px" : "32px" }}
                 >
                   {diferenciais.map((f: CardItem, i: number) => (
@@ -182,7 +182,7 @@ export default function LandingPage() {
                       whileInView={{ opacity: 1, x: 0 }}
                       transition={{ delay: i * 0.1 }}
                       viewport={{ once: true }}
-                      className="flex items-start"
+                      className="flex flex-col items-center text-center max-w-md"
                       style={{ gap: "16px" }}
                     >
                       <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl border border-yellow-400/20 bg-yellow-400/5 text-yellow-400">
@@ -197,7 +197,7 @@ export default function LandingPage() {
                 </div>
 
                 <div 
-                  className="mt-12"
+                  className="mt-12 flex justify-center"
                   style={{ paddingTop: "32px" }}
                 >
                   <CTAButton href="#contato" primary={true}>Falar com Edney</CTAButton>
@@ -233,14 +233,14 @@ export default function LandingPage() {
                   whileInView={{ opacity: 1, y: 0 }}
                   transition={{ delay: i * 0.1 }}
                   viewport={{ once: true }}
-                  className="group relative overflow-hidden rounded-4xl border border-white/10 bg-white/4 p-8 transition-all hover:border-yellow-400/30 hover:bg-yellow-400/5 sm:p-10"
+                  className="group relative flex flex-col items-center text-center overflow-hidden rounded-4xl border border-white/10 bg-white/4 p-8 transition-all hover:border-yellow-400/30 hover:bg-yellow-400/5 sm:p-10"
                 >
                   <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-yellow-400/10 text-yellow-300 transition-transform duration-500 group-hover:scale-110">
                     <s.icon className="h-7 w-7" />
                   </div>
                   <h3 className="mt-8 text-xl font-black uppercase text-white">{s.title}</h3>
                   <p className="mt-4 text-sm leading-7 text-zinc-400">{s.desc}</p>
-                  <div className="mt-8 flex flex-wrap" style={{ gap: "8px" }}>
+                  <div className="mt-8 flex flex-wrap justify-center" style={{ gap: "8px" }}>
                     {s.tags.map((tag: string) => (
                       <MetricPill key={tag}>{tag}</MetricPill>
                     ))}
@@ -347,7 +347,7 @@ export default function LandingPage() {
               className="grid items-start lg:grid-cols-2"
               style={{ gap: bp === "none" ? "48px" : "80px" }}
             >
-              <div className="flex flex-col items-center text-center lg:items-start lg:text-left">
+              <div className="flex flex-col items-center text-center">
                 <Eyebrow>Pronto para o próximo passo?</Eyebrow>
                 <h2 className="mt-6 text-4xl font-black uppercase leading-tight text-white sm:text-6xl">Sua vitória começa <span className="text-yellow-400">aqui.</span></h2>
                 <p className="mt-8 text-lg leading-relaxed text-zinc-400">
@@ -356,14 +356,14 @@ export default function LandingPage() {
                 </p>
                 
                 <div 
-                  className="mt-12 flex flex-col items-center lg:items-start"
+                  className="mt-12 flex flex-col items-center"
                   style={{ gap: "24px" }}
                 >
                   <div className="flex items-center gap-4">
                     <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-white/4 text-yellow-400">
                       <MessageCircle className="h-6 w-6" />
                     </div>
-                    <div className="flex flex-col items-center lg:items-start">
+                    <div className="flex flex-col items-center">
                       <div className="text-xs font-bold uppercase tracking-widest text-zinc-500">Atendimento via WhatsApp</div>
                       <div className="text-lg font-bold text-white">(88) 99341-3974</div>
                     </div>
@@ -372,7 +372,7 @@ export default function LandingPage() {
                     <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-white/4 text-yellow-400">
                       <Globe className="h-6 w-6" />
                     </div>
-                    <div className="flex flex-col items-center lg:items-start">
+                    <div className="flex flex-col items-center">
                       <div className="text-xs font-bold uppercase tracking-widest text-zinc-500">Localização física</div>
                       <div className="text-lg font-bold text-white">Sobral, Ceará</div>
                     </div>

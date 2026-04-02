@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import { navLinks } from "../data/content";
@@ -7,6 +8,18 @@ import { useUIStore } from "../store/useUIStore";
 export function Header() {
   const { isMenuOpen, toggleMenu, closeMenu } = useUIStore();
   const bp = useBreakpoint();
+
+  // Body Scroll Lock
+  useEffect(() => {
+    if (isMenuOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "auto";
+    }
+    return () => {
+      document.body.style.overflow = "auto";
+    };
+  }, [isMenuOpen]);
 
   // Responsive Styles
   const navPadding = bp === "none" ? "12px 16px" : 
@@ -18,10 +31,10 @@ export function Header() {
   const navGap = "20px";
 
   return (
-    <header className="sticky top-0 z-60 border-b border-white/10 bg-black/70 backdrop-blur-xl">
+    <header className="sticky top-0 z-60 border-b border-white/10 bg-black/70 backdrop-blur-xl justify-center align-center">
       <div 
-        className="mx-auto flex max-w-7xl items-center justify-between"
-        style={{ padding: navPadding }}
+        className="mx-auto flex max-w-[90%] items-center justify-between align-center "
+        style={{ padding: navPadding, paddingLeft: "13%"}}
       >
         {/* Logo */}
         <a href="#topo" className="flex items-center" style={{ gap: logoGap }}>
@@ -84,7 +97,7 @@ export function Header() {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               onClick={closeMenu}
-              className="fixed inset-0 z-70 bg-black/60 backdrop-blur-sm lg:hidden"
+              className="fixed inset-0 z-90 bg-black/80 backdrop-blur-md lg:hidden"
             />
             {/* Sidebar */}
             <motion.div
@@ -93,37 +106,44 @@ export function Header() {
               animate={{ x: 0 }}
               exit={{ x: "100%" }}
               transition={{ type: "spring", damping: 25, stiffness: 200 }}
-              className="fixed right-0 top-0 z-80 h-full w-[280px] border-l border-white/10 bg-zinc-950 shadow-2xl sm:w-[320px] lg:hidden"
+              className="fixed right-0 top-0 z-100 h-full w-[300px] border-l border-white/10 bg-[#0a0a0a] shadow-2xl sm:w-[360px] lg:hidden"
             >
-              <div className="flex flex-col h-full p-6">
-                <div className="flex items-center justify-between mb-8">
-                  <div className="text-sm font-black uppercase tracking-widest text-yellow-300">Navegação</div>
-                  <button onClick={closeMenu} className="p-2 text-zinc-400 hover:text-white transition">
-                    <X className="h-6 w-6" />
+              <div className="flex flex-col h-full">
+                {/* Sidebar Header */}
+                <div className="flex items-center justify-between p-8 border-b border-white/5">
+                  <div className="text-sm font-black uppercase tracking-[0.2em] text-white">Menu</div>
+                  <button 
+                    onClick={closeMenu} 
+                    className="flex h-10 w-10 items-center justify-center rounded-xl bg-white/5 text-zinc-400 hover:text-white transition"
+                  >
+                    <X className="h-5 w-5" />
                   </button>
                 </div>
                 
-                <nav className="flex flex-col" style={{ gap: "8px" }}>
-                  {navLinks.map((link) => (
-                    <a
-                      key={link.href}
-                      href={link.href}
-                      onClick={closeMenu}
-                      className="block rounded-lg px-4 py-4 text-xs font-black uppercase tracking-[0.18em] text-zinc-400 hover:bg-white/4 hover:text-yellow-300 transition"
-                    >
-                      {link.label}
-                    </a>
-                  ))}
-                </nav>
+                <div className="flex flex-col h-full p-8 pt-10">
+                  <nav className="flex flex-col" style={{ gap: "24px" }}>
+                    {navLinks.map((link) => (
+                      <a
+                        key={link.href}
+                        href={link.href}
+                        onClick={closeMenu}
+                        className="group flex items-center justify-between py-2 text-sm font-black uppercase tracking-[0.2em] text-zinc-400 transition-all hover:text-yellow-300"
+                      >
+                        <span>{link.label}</span>
+                        <div className="h-px w-0 bg-yellow-400/50 transition-all duration-300 group-hover:w-8" />
+                      </a>
+                    ))}
+                  </nav>
 
-                <div className="mt-auto pt-6">
-                  <a
-                    href="#contato"
-                    onClick={closeMenu}
-                    className="flex h-12 items-center justify-center rounded-full bg-yellow-400 px-6 text-xs font-black uppercase tracking-[0.18em] text-black transition hover:bg-yellow-300"
-                  >
-                    Falar sobre meu projeto
-                  </a>
+                  <div className="mt-auto pb-4">
+                    <a
+                      href="#contato"
+                      onClick={closeMenu}
+                      className="flex h-14 items-center justify-center rounded-full bg-yellow-400 px-8 text-xs font-black uppercase tracking-[0.2em] text-black transition-all hover:bg-yellow-300 hover:shadow-xl hover:shadow-yellow-500/20 active:scale-95"
+                    >
+                      Falar sobre meu projeto
+                    </a>
+                  </div>
                 </div>
               </div>
             </motion.div>
