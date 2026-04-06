@@ -15,7 +15,7 @@ interface FormState {
 const initialState: FormState = { nome: "", whatsapp: "", email: "", projeto: "", mensagem: "" };
 
 const inputClass =
-  "h-12 w-full rounded-xl border border-white/10 bg-white/4 px-4 text-sm text-white outline-none transition placeholder:text-zinc-500 focus:border-yellow-400/40 focus:bg-white/6 sm:rounded-2xl";
+  "h-12 w-full rounded-xl border border-white/10 bg-white/4 text-sm text-white outline-none transition placeholder:text-zinc-500 focus:border-yellow-400/40 focus:bg-white/6 sm:rounded-2xl";
 
 export function LeadForm() {
   const [formData, setFormData] = useState<FormState>(initialState);
@@ -78,8 +78,8 @@ export function LeadForm() {
     >
       <div className="flex flex-col items-center text-center" style={{ marginBottom: headerMarginBottom }}>
         <div className="text-xs font-semibold uppercase tracking-[0.2em] text-yellow-300 sm:tracking-[0.22em]">Solicite contato</div>
-        <h3 className="mt-3 text-xl font-black uppercase text-white sm:text-2xl">Fale sobre o seu projeto</h3>
-        <p className="mt-2 text-sm leading-7 text-zinc-300 sm:mt-3">Descreva rapidamente o cenário, objetivo e necessidade.</p>
+        <h3 className="text-xl font-black uppercase text-white sm:text-2xl" style={{ marginTop: "12px" }}>Fale sobre o seu projeto</h3>
+        <p className="text-sm leading-7 text-zinc-300" style={{ marginTop: bp === "none" ? "8px" : "12px" }}>Descreva rapidamente o cenário, objetivo e necessidade.</p>
       </div>
 
       <AnimatePresence mode="wait">
@@ -99,7 +99,7 @@ export function LeadForm() {
               <BadgeCheck className="h-7 w-7 text-green-400 sm:h-8 sm:w-8" />
             </div>
             <h4 className="text-lg font-bold text-white sm:text-xl">Mensagem enviada!</h4>
-            <p className="mt-2 text-sm text-zinc-300">Entraremos em contato em breve.</p>
+            <p className="text-sm text-zinc-300" style={{ marginTop: "8px" }}>Entraremos em contato em breve.</p>
           </motion.div>
         ) : (
           <motion.form 
@@ -118,6 +118,7 @@ export function LeadForm() {
               value={formData.nome}
               onChange={(e) => handleChange("nome", e.target.value)}
               className={inputClass}
+              style={{ paddingLeft: "16px", paddingRight: "16px" }}
               disabled={loading}
             />
             <div 
@@ -130,6 +131,7 @@ export function LeadForm() {
                 value={formData.whatsapp} 
                 onChange={(e) => handleChange("whatsapp", e.target.value)} 
                 className={inputClass} 
+                style={{ paddingLeft: "16px", paddingRight: "16px" }}
                 disabled={loading}
               />
               <input 
@@ -138,6 +140,7 @@ export function LeadForm() {
                 value={formData.email} 
                 onChange={(e) => handleChange("email", e.target.value)} 
                 className={inputClass} 
+                style={{ paddingLeft: "16px", paddingRight: "16px" }}
                 disabled={loading}
               />
             </div>
@@ -147,14 +150,15 @@ export function LeadForm() {
               value={formData.projeto} 
               onChange={(e) => handleChange("projeto", e.target.value)} 
               className={inputClass} 
+              style={{ paddingLeft: "16px", paddingRight: "16px" }}
               disabled={loading}
             />
             <textarea
               placeholder="Descreva seu cenário, necessidade ou objetivo"
               value={formData.mensagem}
               onChange={(e) => handleChange("mensagem", e.target.value)}
-              className="w-full rounded-xl border border-white/10 bg-white/4 px-4 py-3 text-sm text-white outline-none transition placeholder:text-zinc-500 focus:border-yellow-400/40 focus:bg-white/6 sm:rounded-2xl"
-              style={{ minHeight: bp === "none" ? "100px" : "130px" }}
+              className="w-full rounded-xl border border-white/10 bg-white/4 text-sm text-white outline-none transition placeholder:text-zinc-500 focus:border-yellow-400/40 focus:bg-white/6 sm:rounded-2xl"
+              style={{ minHeight: bp === "none" ? "100px" : "130px", padding: "12px 16px" }}
               disabled={loading}
             />
             
@@ -171,7 +175,12 @@ export function LeadForm() {
               <button 
                 type="submit" 
                 disabled={loading}
-                className="inline-flex h-12 items-center justify-center rounded-full bg-yellow-400 px-5 text-xs font-black uppercase tracking-[0.16em] text-black transition-all hover:bg-yellow-300 hover:shadow-lg hover:shadow-yellow-500/20 sm:px-6 sm:tracking-[0.18em] disabled:opacity-50 disabled:cursor-not-allowed"
+                className="inline-flex h-12 items-center justify-center text-center rounded-full bg-yellow-400 text-xs font-black uppercase text-black transition-all hover:bg-yellow-300 hover:shadow-lg hover:shadow-yellow-500/20 disabled:opacity-50 disabled:cursor-not-allowed"
+                style={{ 
+                  paddingLeft: bp === "none" ? "20px" : "24px", 
+                  paddingRight: bp === "none" ? "20px" : "24px",
+                  letterSpacing: bp === "none" ? "0.16em" : "0.18em"
+                }}
               >
                 {loading ? "Enviando..." : "Falar sobre meu projeto"}
               </button>

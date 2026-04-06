@@ -80,8 +80,8 @@ export function TestimonialsCarousel({ items }: { items: Testimonial[] }) {
 
       {/* Controls */}
       <div 
-        className="mt-6 flex items-center justify-center sm:mt-8"
-        style={{ gap: controlsGap }}
+        className="flex items-center justify-center"
+        style={{ gap: controlsGap, marginTop: bp === "none" ? "24px" : "32px" }}
       >
         <button
           onClick={prev}

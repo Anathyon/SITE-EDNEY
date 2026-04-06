@@ -1,3 +1,4 @@
+import { motion } from "framer-motion";
 import {
   MessageCircle,
   Shield,
@@ -5,6 +6,7 @@ import {
   Mail,
 } from "lucide-react";
 import { useBreakpoint } from "../hooks/useBreakpoint";
+import { staggerContainer, fadeUpVariants } from "../animations";
 
 const Instagram = (props: any) => (
   <svg {...props} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></svg>
@@ -57,15 +59,22 @@ export function Footer() {
   return (
     <footer className="border-t border-white/10 bg-black/70">
       <div 
-        className="mx-auto max-w-7xl"
-        style={{ padding: footerPadding }}
+        className="max-w-7xl"
+        style={{ padding: footerPadding, marginLeft: "auto", marginRight: "auto" }}
       >
-        <div 
+        <motion.div 
+          variants={staggerContainer}
+          initial="initial"
+          whileInView="whileInView"
+          viewport={{ once: true, amount: 0.1 }}
           className="grid sm:grid-cols-2 lg:grid-cols-3"
           style={{ gap: gridGap }}
         >
           {/* Brand */}
-          <div className="flex flex-col items-center text-center lg:items-start lg:text-left">
+          <motion.div 
+            variants={fadeUpVariants}
+            className="flex flex-col items-center text-center lg:items-start lg:text-left"
+          >
             <div className="flex items-center" style={{ gap: bp === "none" ? "10px" : "12px" }}>
               <div 
                 className="flex items-center justify-center rounded-xl border border-yellow-400/30 bg-yellow-400/10 text-xs font-black uppercase tracking-[0.16em] text-yellow-300"
@@ -103,14 +112,17 @@ export function Footer() {
                 </a>
               ))}
             </div>
-          </div>
+          </motion.div>
 
           {/* Navigation */}
-          <div className="flex flex-col items-center text-center lg:items-start lg:text-left">
+          <motion.div 
+            variants={fadeUpVariants}
+            className="flex flex-col items-center text-center lg:items-start lg:text-left"
+          >
             <div className="text-[10px] font-semibold uppercase tracking-[0.2em] text-yellow-300 sm:text-xs sm:tracking-[0.22em]">Navegação</div>
             <div 
-              className={`mt-3 grid grid-cols-2 ${bp !== "none" ? "sm:flex sm:flex-col" : ""}`}
-              style={{ gap: navGap }}
+              className={`grid grid-cols-2 ${bp !== "none" ? "sm:flex sm:flex-col" : ""}`}
+              style={{ gap: navGap, marginTop: "12px" }}
             >
               {footerNav.map((link) => (
                 <a
@@ -122,22 +134,25 @@ export function Footer() {
                 </a>
               ))}
             </div>
-          </div>
+          </motion.div>
 
           {/* Legal */}
-          <div className="flex flex-col items-center text-center lg:items-start lg:text-left">
+          <motion.div 
+            variants={fadeUpVariants}
+            className="flex flex-col items-center text-center lg:items-start lg:text-left"
+          >
             <div className="text-[10px] font-semibold uppercase tracking-[0.2em] text-yellow-300 sm:text-xs sm:tracking-[0.22em]">Informações</div>
             <div 
-              className="mt-3 flex flex-col"
-              style={{ gap: legalGap }}
+              className="flex flex-col"
+              style={{ gap: legalGap, marginTop: "12px" }}
             >
-              <a href="#" className="flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.14em] text-zinc-400 transition hover:text-yellow-300 sm:text-xs sm:tracking-[0.18em]">
+              <a href="#" className="flex items-center text-[11px] font-semibold uppercase tracking-[0.14em] text-zinc-400 transition hover:text-yellow-300 sm:text-xs sm:tracking-[0.18em]" style={{ gap: "8px" }}>
                 <Shield className="h-3 w-3 sm:h-3.5 sm:w-3.5" /> Política de privacidade
               </a>
-              <a href="#" className="flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.14em] text-zinc-400 transition hover:text-yellow-300 sm:text-xs sm:tracking-[0.18em]">
+              <a href="#" className="flex items-center text-[11px] font-semibold uppercase tracking-[0.14em] text-zinc-400 transition hover:text-yellow-300 sm:text-xs sm:tracking-[0.18em]" style={{ gap: "8px" }}>
                 <FileText className="h-3 w-3 sm:h-3.5 sm:w-3.5" /> Termos de uso
               </a>
-              <a href="#" className="flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.14em] text-zinc-400 transition hover:text-yellow-300 sm:text-xs sm:tracking-[0.18em]">
+              <a href="#" className="flex items-center text-[11px] font-semibold uppercase tracking-[0.14em] text-zinc-400 transition hover:text-yellow-300 sm:text-xs sm:tracking-[0.18em]" style={{ gap: "8px" }}>
                 <Mail className="h-3 w-3 sm:h-3.5 sm:w-3.5" /> Contato por e-mail
               </a>
             </div>
@@ -146,11 +161,11 @@ export function Footer() {
               style={{ padding: bp === "none" ? "14px" : "16px", marginTop: localizationMarginTop }}
             >
               <div className="text-[10px] font-semibold uppercase tracking-[0.14em] text-zinc-400 sm:text-xs sm:tracking-[0.16em]">Localização</div>
-              <p className="mt-1.5 text-sm text-zinc-300 sm:mt-2">Região Norte do Ceará</p>
+              <p className="text-sm text-zinc-300" style={{ marginTop: "6px" }}>Região Norte do Ceará</p>
               <p className="text-xs text-zinc-500">Atendimento nacional</p>
             </div>
-          </div>
-        </div>
+          </motion.div>
+        </motion.div>
 
         <div 
           className="flex flex-col items-center justify-between border-t border-white/10 text-center sm:flex-row sm:text-left"

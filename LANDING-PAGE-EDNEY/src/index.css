@@ -17,6 +17,9 @@ body {
   background: #050505;
   color: white;
   overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 /* Disable hover scale on touch devices */

@@ -31,10 +31,15 @@ export function Header() {
   const navGap = "20px";
 
   return (
-    <header className="sticky top-0 z-60 border-b border-white/10 bg-black/70 backdrop-blur-xl justify-center align-center">
+    <motion.header 
+      initial={{ y: -20, opacity: 0 }}
+      animate={{ y: 0, opacity: 1 }}
+      transition={{ duration: 0.6, ease: "easeOut" }}
+      className="sticky top-0 z-60 border-b border-white/10 bg-black/70 backdrop-blur-xl"
+    >
       <div 
-        className="mx-auto flex max-w-[90%] items-center justify-between align-center "
-        style={{ padding: navPadding, paddingLeft: "13%"}}
+        className="flex max-w-[90%] items-center justify-between"
+        style={{ padding: navPadding, paddingLeft: "13%", marginLeft: "auto", marginRight: "auto" }}
       >
         {/* Logo */}
         <a href="#topo" className="flex items-center" style={{ gap: logoGap }}>
@@ -71,7 +76,7 @@ export function Header() {
         {/* Desktop CTA */}
         <a 
           href="#contato" 
-          className="hidden items-center rounded-full bg-yellow-400 text-[11px] font-black uppercase tracking-[0.14em] text-black transition hover:bg-yellow-300 lg:inline-flex"
+          className="hidden items-center justify-center text-center rounded-full bg-yellow-400 text-[11px] font-black uppercase tracking-[0.14em] text-black transition hover:bg-yellow-300 lg:inline-flex"
           style={{ height: "44px", padding: "0 20px" }}
         >
           Falar sobre meu projeto
@@ -110,7 +115,7 @@ export function Header() {
             >
               <div className="flex flex-col h-full">
                 {/* Sidebar Header */}
-                <div className="flex items-center justify-between p-8 border-b border-white/5">
+                <div className="flex items-center justify-between border-b border-white/5" style={{ padding: "32px" }}>
                   <div className="text-sm font-black uppercase tracking-[0.2em] text-white">Menu</div>
                   <button 
                     onClick={closeMenu} 
@@ -120,26 +125,31 @@ export function Header() {
                   </button>
                 </div>
                 
-                <div className="flex flex-col h-full p-8 pt-10">
+                <div className="flex flex-col h-full" style={{ padding: "32px", paddingTop: "40px" }}>
                   <nav className="flex flex-col" style={{ gap: "24px" }}>
-                    {navLinks.map((link) => (
-                      <a
+                    {navLinks.map((link, i) => (
+                      <motion.a
                         key={link.href}
+                        initial={{ opacity: 0, x: 20 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ delay: 0.1 + i * 0.05 }}
                         href={link.href}
                         onClick={closeMenu}
-                        className="group flex items-center justify-between py-2 text-sm font-black uppercase tracking-[0.2em] text-zinc-400 transition-all hover:text-yellow-300"
+                        className="group flex items-center justify-between text-sm font-black uppercase tracking-[0.2em] text-zinc-400 transition-all hover:text-yellow-300"
+                        style={{ paddingTop: "8px", paddingBottom: "8px" }}
                       >
                         <span>{link.label}</span>
                         <div className="h-px w-0 bg-yellow-400/50 transition-all duration-300 group-hover:w-8" />
-                      </a>
+                      </motion.a>
                     ))}
                   </nav>
 
-                  <div className="mt-auto pb-4">
+                  <div style={{ marginTop: "auto", paddingBottom: "16px" }}>
                     <a
                       href="#contato"
                       onClick={closeMenu}
-                      className="flex h-14 items-center justify-center rounded-full bg-yellow-400 px-8 text-xs font-black uppercase tracking-[0.2em] text-black transition-all hover:bg-yellow-300 hover:shadow-xl hover:shadow-yellow-500/20 active:scale-95"
+                      className="flex h-14 items-center justify-center text-center rounded-full bg-yellow-400 text-xs font-black uppercase tracking-[0.2em] text-black transition-all hover:bg-yellow-300 hover:shadow-xl hover:shadow-yellow-500/20 active:scale-95"
+                      style={{ paddingLeft: "32px", paddingRight: "32px" }}
                     >
                       Falar sobre meu projeto
                     </a>
@@ -150,7 +160,7 @@ export function Header() {
           </>
         )}
       </AnimatePresence>
-    </header>
+    </motion.header>
   );
 }
 

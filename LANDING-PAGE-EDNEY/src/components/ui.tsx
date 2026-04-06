@@ -1,13 +1,14 @@
 import { type ReactNode } from "react";
 import { motion } from "framer-motion";
-import { fadeUp } from "../animations";
+import { scaleIn, hoverScale, fadeUp } from "../animations";
 import { useBreakpoint } from "../hooks/useBreakpoint";
 
 /* ──── Eyebrow ──── */
 export function Eyebrow({ children }: { children: ReactNode }) {
   const bp = useBreakpoint();
   return (
-    <div 
+    <motion.div 
+      {...scaleIn}
       className="inline-flex items-center rounded-full border border-yellow-400/30 bg-yellow-400/10 font-semibold uppercase text-yellow-300"
       style={{ 
         marginBottom: "16px",
@@ -19,17 +20,17 @@ export function Eyebrow({ children }: { children: ReactNode }) {
     >
       <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-yellow-300" />
       {children}
-    </div>
+    </motion.div>
   );
 }
 
 /* ──── Section Title ──── */
 export function SectionTitle({ eyebrow, title, desc }: { eyebrow: string; title: string; desc?: string }) {
   return (
-    <motion.div {...fadeUp} className="mx-auto flex max-w-3xl flex-col items-center text-center">
+    <motion.div {...fadeUp} className="flex max-w-3xl flex-col items-center text-center" style={{ marginLeft: "auto", marginRight: "auto" }}>
       <Eyebrow>{eyebrow}</Eyebrow>
       <h2 className="text-2xl font-black uppercase tracking-tight text-white sm:text-3xl md:text-4xl lg:text-5xl">{title}</h2>
-      {desc && <p className="mt-4 max-w-2xl text-sm leading-7 text-zinc-300 md:text-base">{desc}</p>}
+      {desc && <p className="max-w-2xl text-sm leading-7 text-zinc-300 md:text-base" style={{ marginTop: "16px" }}>{desc}</p>}
     </motion.div>
   );
 }
@@ -39,8 +40,7 @@ export function PhotoCard({ src, alt, className = "", label, children }: { src: 
   const bp = useBreakpoint();
   return (
     <motion.div
-      whileHover={{ y: -4 }}
-      transition={{ type: "spring", stiffness: 200, damping: 20 }}
+      {...hoverScale}
       className={`photo-card-hover group relative overflow-hidden rounded-2xl border border-yellow-400/20 bg-zinc-950 shadow-2xl shadow-black/40 sm:rounded-4xl ${className}`}
     >
       <img src={src} alt={alt} loading="lazy" className="absolute inset-0 h-full w-full object-cover transition duration-500 group-hover:scale-[1.03]" />
@@ -99,14 +99,15 @@ export function NavLink({ href, children, onClick }: { href: string; children: R
 /* ──── CTA Button ──── */
 export function CTAButton({ href, primary, children, className = "", onClick }: { href: string; primary: boolean; children: ReactNode; className?: string; onClick?: () => void }) {
   const bp = useBreakpoint();
-  const base = "inline-flex items-center justify-center rounded-full uppercase transition-all hover:-translate-y-0.5";
+  const base = "inline-flex items-center justify-center text-center rounded-full uppercase transition-all hover:-translate-y-0.5";
   const primaryStyle = "bg-yellow-400 font-black text-black hover:bg-yellow-300 hover:shadow-lg hover:shadow-yellow-500/20";
   const secondaryStyle = "border border-white/15 bg-white/5 font-semibold text-white hover:bg-white/10";
 
   return (
-    <a 
+    <motion.a 
       href={href} 
       onClick={onClick} 
+      {...hoverScale}
       className={`${base} ${primary ? primaryStyle : secondaryStyle} ${className}`}
       style={{ 
         height: bp === "none" ? "44px" : "48px",
@@ -117,12 +118,12 @@ export function CTAButton({ href, primary, children, className = "", onClick }: 
       }}
     >
       {children}
-    </a>
+    </motion.a>
   );
 }
 
 /* ──── Section Divider ──── */
 export function SectionDivider() {
-  return <div className="mx-auto h-px max-w-7xl bg-linear-to-r from-transparent via-white/10 to-transparent" />;
+  return <div className="h-px max-w-7xl bg-linear-to-r from-transparent via-white/10 to-transparent" style={{ marginLeft: "auto", marginRight: "auto" }} />;
 }
 
