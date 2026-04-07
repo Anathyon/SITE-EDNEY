@@ -50,6 +50,7 @@ export interface TestimonialItem {
   texto: string;
   nome: string;
   cargo: string;
+  avatar: string;
 }
 
 export interface FAQItem {
@@ -153,10 +154,30 @@ export const publico: string[] = [
 ];
 
 export const depoimentos: TestimonialItem[] = [
-  { texto: "Edney assumiu a comunicação em um momento crítico e trouxe direção, organização e resposta.", nome: "Carlos Oliveira", cargo: "Ex-Prefeito e Liderança Política" },
-  { texto: "Não entrou apenas para executar. Entrou para conduzir a comunicação com visão estratégica.", nome: "Mariana Costa", cargo: "Coordenadora de Campanha" },
-  { texto: "Tem leitura de cenário, velocidade de resposta e capacidade real de fazer a operação funcionar.", nome: "Ricardo Santos", cargo: "Secretário de Comunicação" },
-  { texto: "A comunicação saiu do improviso e ganhou planejamento, ritmo e resultado mensurável.", nome: "Ana Paula Silva", cargo: "Consultora Política" },
+  { 
+    texto: "Edney assumiu a comunicação em um momento crítico e trouxe direção, organização e resposta.", 
+    nome: "Carlos Oliveira", 
+    cargo: "Ex-Prefeito e Liderança Política",
+    avatar: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?q=80&w=150&h=150&auto=format&fit=crop"
+  },
+  { 
+    texto: "Não entrou apenas para executar. Entrou para conduzir a comunicação com visão estratégica.", 
+    nome: "Mariana Costa", 
+    cargo: "Coordenadora de Campanha",
+    avatar: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=150&h=150&auto=format&fit=crop"
+  },
+  { 
+    texto: "Tem leitura de cenário, velocidade de resposta e capacidade real de fazer a operação funcionar.", 
+    nome: "Ricardo Santos", 
+    cargo: "Secretário de Comunicação",
+    avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=150&h=150&auto=format&fit=crop"
+  },
+  { 
+    texto: "A comunicação saiu do improviso e ganhou planejamento, ritmo e resultado mensurável.", 
+    nome: "Ana Paula Silva", 
+    cargo: "Consultora Política",
+    avatar: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=150&h=150&auto=format&fit=crop"
+  },
 ];
 
 export const selos: string[] = [

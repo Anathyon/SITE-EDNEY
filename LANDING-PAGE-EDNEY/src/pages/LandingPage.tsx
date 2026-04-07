@@ -334,7 +334,7 @@ export default function LandingPage() {
                 content: d.texto,
                 author: d.nome,
                 role: d.cargo,
-                avatar: portraitImg // Fallback for avatar
+                avatar: d.avatar
               }))} />
             </motion.div>
           </div>
