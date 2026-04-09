@@ -49,10 +49,43 @@ export function LeadForm() {
     setError(null);
 
     try {
-      // Simulação de chamada de API
-      await new Promise((resolve) => setTimeout(resolve, 1500));
-      
+      // 1. Enviar para o Email via FormSubmit
+      const response = await fetch("https://formsubmit.co/ajax/edneypro@gmail.com", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Accept": "application/json",
+        },
+        body: JSON.stringify({
+          Nome: formData.nome,
+          WhatsApp: formData.whatsapp,
+          Email: formData.email,
+          "Projeto/Cidade": formData.projeto,
+          Mensagem: formData.mensagem,
+          _subject: `Novo contato: ${formData.nome}`,
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error("Erro ao enviar para o email.");
+      }
+
+      // 2. Preparar mensagem do WhatsApp
+      const waMessage = `Olá Edney, recebi um novo contato pelo site:
+
+*Nome:* ${formData.nome}
+*WhatsApp:* ${formData.whatsapp}
+*E-mail:* ${formData.email}
+*Projeto/Cidade:* ${formData.projeto}
+*Mensagem:* ${formData.mensagem}`;
+
+      const encodedMessage = encodeURIComponent(waMessage);
+      const whatsappUrl = `https://wa.me/558592175196?text=${encodedMessage}`;
+
+      // 3. Sucesso e redirecionamento
       setSubmitted(true);
+      window.open(whatsappUrl, "_blank");
+      
       setFormData(initialState);
       setTimeout(() => setSubmitted(false), 5000);
     } catch (err) {
@@ -99,7 +132,7 @@ export function LeadForm() {
               <BadgeCheck className="h-7 w-7 text-green-400 sm:h-8 sm:w-8" />
             </div>
             <h4 className="text-lg font-bold text-white sm:text-xl">Mensagem enviada!</h4>
-            <p className="text-sm text-zinc-300" style={{ marginTop: "8px" }}>Entraremos em contato em breve.</p>
+            <p className="text-sm text-zinc-300" style={{ marginTop: "8px" }}>Edney receberá sua mensagem em breve.</p>
           </motion.div>
         ) : (
           <motion.form 
@@ -113,6 +146,7 @@ export function LeadForm() {
           >
             <input
               type="text"
+              name="nome"
               required
               placeholder="Seu nome"
               value={formData.nome}
@@ -127,6 +161,7 @@ export function LeadForm() {
             >
               <input 
                 type="text" 
+                name="whatsapp"
                 placeholder="WhatsApp" 
                 value={formData.whatsapp} 
                 onChange={(e) => handleChange("whatsapp", e.target.value)} 
@@ -136,6 +171,7 @@ export function LeadForm() {
               />
               <input 
                 type="email" 
+                name="email"
                 placeholder="E-mail" 
                 value={formData.email} 
                 onChange={(e) => handleChange("email", e.target.value)} 
@@ -146,6 +182,7 @@ export function LeadForm() {
             </div>
             <input 
               type="text" 
+              name="projeto"
               placeholder="Cidade / projeto / mandato" 
               value={formData.projeto} 
               onChange={(e) => handleChange("projeto", e.target.value)} 
@@ -154,6 +191,7 @@ export function LeadForm() {
               disabled={loading}
             />
             <textarea
+              name="mensagem"
               placeholder="Descreva seu cenário, necessidade ou objetivo"
               value={formData.mensagem}
               onChange={(e) => handleChange("mensagem", e.target.value)}
