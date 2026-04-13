@@ -49,7 +49,13 @@ export function FAQAccordion({ items }: { items: FAQItem[] }) {
                 >
                   <div 
                     className="text-sm leading-7 text-zinc-400 sm:text-base"
-                    style={{ padding: itemPadding, paddingTop: 0, marginTop: `-${answerPaddingTop}` }}
+                    style={{ 
+                      paddingLeft: bp === "none" ? "20px" : "24px",
+                      paddingRight: bp === "none" ? "20px" : "24px",
+                      paddingBottom: bp === "none" ? "16px" : "20px",
+                      paddingTop: 0, 
+                      marginTop: `-${answerPaddingTop}` 
+                    }}
                   >
                     <div style={{ paddingTop: answerPaddingTop }}>
                       {item.answer}

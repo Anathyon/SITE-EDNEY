@@ -48,30 +48,8 @@ export function LeadForm() {
     setLoading(true);
     setError(null);
 
-    try {
-      // 1. Enviar para o Email via FormSubmit
-      const response = await fetch("https://formsubmit.co/ajax/edneypro@gmail.com", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "Accept": "application/json",
-        },
-        body: JSON.stringify({
-          Nome: formData.nome,
-          WhatsApp: formData.whatsapp,
-          Email: formData.email,
-          "Projeto/Cidade": formData.projeto,
-          Mensagem: formData.mensagem,
-          _subject: `Novo contato: ${formData.nome}`,
-        }),
-      });
-
-      if (!response.ok) {
-        throw new Error("Erro ao enviar para o email.");
-      }
-
-      // 2. Preparar mensagem do WhatsApp
-      const waMessage = `Olá Edney, recebi um novo contato pelo site:
+    // Prepare WhatsApp message
+    const waMessage = `Olá Edney, recebi um novo contato pelo site:
 
 *Nome:* ${formData.nome}
 *WhatsApp:* ${formData.whatsapp}
@@ -79,19 +57,46 @@ export function LeadForm() {
 *Projeto/Cidade:* ${formData.projeto}
 *Mensagem:* ${formData.mensagem}`;
 
-      const encodedMessage = encodeURIComponent(waMessage);
-      const whatsappUrl = `https://wa.me/558592175196?text=${encodedMessage}`;
+    const encodedMessage = encodeURIComponent(waMessage);
+    const whatsappUrl = `https://wa.me/558592175196?text=${encodedMessage}`;
 
-      // 3. Sucesso e redirecionamento
-      setSubmitted(true);
-      window.open(whatsappUrl, "_blank");
-      
-      setFormData(initialState);
-      setTimeout(() => setSubmitted(false), 5000);
+    try {
+      // 1. Enviar para o Email via Web3Forms (Usando FormData para maior compatibilidade)
+      const formSubmission = new FormData();
+      formSubmission.append("access_key", "02018fd8-9186-4155-b630-7021ca44cee1");
+      formSubmission.append("nome", formData.nome);
+      formSubmission.append("whatsapp", formData.whatsapp);
+      formSubmission.append("email", formData.email);
+      formSubmission.append("projeto", formData.projeto);
+      formSubmission.append("mensagem", formData.mensagem);
+      formSubmission.append("from_name", "Site Edney - Novo Lead");
+      formSubmission.append("subject", `[SITE EDNEY] Novo Lead: ${formData.nome}`);
+
+      const response = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        body: formSubmission,
+        // Ao usar FormData com fetch, o navegador cuida do Content-Type e do Boundary automaticamente
+      });
+
+      const result = await response.json();
+
+      if (!response.ok) {
+        console.warn("Falha no envio do e-mail (Web3Forms):", result.message || "Erro desconhecido");
+      }
     } catch (err) {
-      setError("Ocorreu um erro ao enviar sua mensagem. Tente novamente.");
+      console.error("Erro na API Web3Forms:", err);
     } finally {
+      // 2. Sempre tenta abrir o WhatsApp e mostra sucesso no site
+      setSubmitted(true);
       setLoading(false);
+      
+      // Pequeno delay para o usuário ver a transição antes de abrir a nova aba
+      setTimeout(() => {
+        window.open(whatsappUrl, "_blank");
+        setFormData(initialState);
+      }, 500);
+
+      setTimeout(() => setSubmitted(false), 8000);
     }
   };
 
@@ -107,7 +112,12 @@ export function LeadForm() {
   return (
     <div 
       className="rounded-2xl border border-white/10 bg-white/4 sm:rounded-[2.25rem]"
-      style={{ padding: formPadding }}
+      style={{ 
+        paddingLeft: formPadding, 
+        paddingRight: formPadding,
+        paddingTop: formPadding,
+        paddingBottom: formPadding 
+      }}
     >
       <div className="flex flex-col items-center text-center" style={{ marginBottom: headerMarginBottom }}>
         <div className="text-xs font-semibold uppercase tracking-[0.2em] text-yellow-300 sm:tracking-[0.22em]">Solicite contato</div>
