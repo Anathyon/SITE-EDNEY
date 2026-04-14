@@ -64,9 +64,11 @@ export function LeadForm() {
       // 1. Enviar para o Email via Web3Forms (Usando FormData para maior compatibilidade)
       const formSubmission = new FormData();
       formSubmission.append("access_key", "02018fd8-9186-4155-b630-7021ca44cee1");
+      formSubmission.append("botcheck", "");
       formSubmission.append("nome", formData.nome);
       formSubmission.append("whatsapp", formData.whatsapp);
       formSubmission.append("email", formData.email);
+      formSubmission.append("replyto", formData.email);
       formSubmission.append("projeto", formData.projeto);
       formSubmission.append("mensagem", formData.mensagem);
       formSubmission.append("from_name", "Site Edney - Novo Lead");
