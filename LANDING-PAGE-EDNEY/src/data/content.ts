@@ -3,7 +3,6 @@ import {
   Sparkles,
   BadgeCheck,
   ShieldCheck,
-  Megaphone,
   Radio,
   Play,
   CircleDollarSign,
@@ -12,13 +11,14 @@ import {
   type LucideIcon,
 } from "lucide-react";
 
-import heroImg from "../assets/hero.png";
-import editorialImg from "../assets/editorial.png";
-import portraitImg from "../assets/portrait.png";
+import heroImg from "../assets/edney-hero.png";
+import portraitImg from "../assets/edney-about.png";
+import editorialImg from "../assets/edney-cases.png";
+import sleeveImg from "../assets/edney-sleeve.png";
 import mapaImg from "../assets/mapa-ceara.png";
 
 /* ──── Re-export assets for convenience ──── */
-export { heroImg, editorialImg, portraitImg, mapaImg };
+export { heroImg, editorialImg, portraitImg, mapaImg, sleeveImg };
 
 /* ──── Types ──── */
 export interface StatItem {
@@ -68,23 +68,23 @@ export interface SocialLink {
 export const stats: StatItem[] = [
   { 
     value: "Desde 2008", 
-    label: "Comunicação política", 
+    label: "Mercado político", 
     desc: "Mais de uma década na linha de frente da comunicação estratégica." 
   },
   { 
     value: "Equipe própria", 
-    label: "Produção especializada", 
-    desc: "Estrutura completa para audiovisual e operação digital rápida." 
+    label: "Operações internas", 
+    desc: "Estrutura completa para audiovisual e operação digital com velocidade e padrão." 
   },
   { 
     value: "Tráfego pago", 
-    label: "Anúncios políticos", 
-    desc: "Especialistas em impulsionamento de resultados e alcance local." 
+    label: "Gestão estratégica", 
+    desc: "Especialistas em impulsionamento de resultados e alcance segmentado." 
   },
   { 
-    value: "Eleições 2026", 
-    label: "Estratégias exclusivas", 
-    desc: "Planejamento tático para os novos desafios do cenário nacional." 
+    value: "Campanhas", 
+    label: "Posicionamento", 
+    desc: "Planejamento tático e comando de narrativa para vencer disputas reais." 
   },
 ];
 
@@ -100,47 +100,47 @@ export const diferenciais: CardItem[] = [
 export const servicos: ServiceItem[] = [
   { 
     title: "Estratégia e posicionamento", 
-    desc: "Diagnóstico político, leitura de cenário, narrativa e construção de contraste.", 
+    desc: "Construção de narrativa, definição de território político e planejamento de campanha.", 
     icon: Target,
     tags: ["Narrativa", "Diagnóstico", "Contraste"]
   },
   { 
-    title: "Direção de comunicação", 
-    desc: "Coordenação de equipes, organização de fluxo e comando da operação.", 
+    title: "Direção e coordenação", 
+    desc: "Comando de equipes de comunicação, definição de prioridades e gestão de agenda estratégica.", 
     icon: Workflow,
     tags: ["Liderança", "Operação", "Fluxo"]
   },
   { 
-    title: "Campanhas e pré-campanhas", 
-    desc: "Estruturação tática, presença pública, discurso e sustentação de imagem.", 
-    icon: Megaphone,
+    title: "Gestão de crise", 
+    desc: "Resposta rápida, controle de danos e reversão de cenários adversos na opinião pública.", 
+    icon: ShieldCheck,
     tags: ["Eleitoral", "Tático", "Discurso"]
   },
   { 
-    title: "Assessoria institucional", 
-    desc: "Comunicação pública, fortalecimento de imagem e resposta em contextos sensíveis.", 
-    icon: Radio,
-    tags: ["Gestão", "Imagem", "Resposta"]
+    title: "Tráfego pago", 
+    desc: "Campanhas de mídia digital segmentadas para maximizar alcance e conversão eleitoral.", 
+    icon: CircleDollarSign,
+    tags: ["Meta Ads", "Google Ads", "Alcance"]
   },
   { 
-    title: "Audiovisual e direção criativa", 
-    desc: "Captação, cobertura, direção criativa e peças com força política.", 
+    title: "Produção audiovisual", 
+    desc: "Criação de conteúdo em vídeo, fotografia de campanha e materiais para redes sociais.", 
     icon: Play,
     tags: ["Vídeo", "Design", "Impacto"]
   },
   { 
-    title: "Tráfego pago especializado", 
-    desc: "Distribuição, impulsionamento e performance em redes sociais.", 
-    icon: CircleDollarSign,
-    tags: ["Meta Ads", "Google Ads", "Alcance"]
+    title: "Automações e soluções", 
+    desc: "Ferramentas inteligentes para otimizar processos, agilizar a comunicação e escalar resultados.", 
+    icon: Radio,
+    tags: ["IA", "Eficiência", "Escala"]
   },
 ];
 
 export const cases: CaseItem[] = [
-  { cidade: "Santa Quitéria", resumo: "Atuação em um contexto de alta complexidade política e institucional, marcado por crise pública e necessidade de reorganização estratégica.", img: heroImg },
-  { cidade: "Hidrolândia", resumo: "Reposicionamento político com crescimento relevante de percepção ao longo do processo eleitoral.", img: editorialImg },
-  { cidade: "Mucambo", resumo: "Atuação ligada ao fortalecimento de liderança, consolidação de projeto político e continuidade no cenário local.", img: portraitImg },
-  { cidade: "Forquilha", resumo: "Ação estratégica focada em posicionamento, narrativa e resultado em cenários municipais competitivos.", img: heroImg },
+  { cidade: "Crise Pública", resumo: "Atuação em crise pública e desgaste institucional. Disputa de narrativa em eleição suplementar com reversão de cenário adverso.", img: editorialImg },
+  { cidade: "Reposicionamento", resumo: "Reposicionamento político estratégico com crescimento mensurável de percepção pública e fortalecimento da imagem.", img: heroImg },
+  { cidade: "Narrativa", resumo: "Operações de comunicação com foco em construção de narrativa e fortalecimento de liderança política regional.", img: portraitImg },
+  { cidade: "Comunicação Efetiva", resumo: "Estruturação da comunicação institucional com posicionamento estratégico e presença digital.", img: sleeveImg },
 ];
 
 export const publico: string[] = [
@@ -155,27 +155,21 @@ export const publico: string[] = [
 
 export const depoimentos: TestimonialItem[] = [
   { 
-    texto: "Edney assumiu a comunicação em um momento crítico e trouxe direção, organização e resposta.", 
-    nome: "Carlos Oliveira", 
-    cargo: "Ex-Prefeito e Liderança Política",
+    texto: "Com a entrada do Edney, a comunicação da gestão ganhou um novo fôlego. Em pouco tempo, a nossa imagem estava com um novo ar, um novo tom e um novo ritmo.", 
+    nome: "Joel Barroso", 
+    cargo: "Liderança Política",
     avatar: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?q=80&w=150&h=150&auto=format&fit=crop"
   },
   { 
-    texto: "Não entrou apenas para executar. Entrou para conduzir a comunicação com visão estratégica.", 
-    nome: "Mariana Costa", 
-    cargo: "Coordenadora de Campanha",
-    avatar: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=150&h=150&auto=format&fit=crop"
-  },
-  { 
-    texto: "Tem leitura de cenário, velocidade de resposta e capacidade real de fazer a operação funcionar.", 
-    nome: "Ricardo Santos", 
-    cargo: "Secretário de Comunicação",
+    texto: "Não entrou apenas para executar. Entrou para conduzir. Tem visão de campo, sabe onde apertar e onde recuar.", 
+    nome: "Wilebaldo Melo", 
+    cargo: "Coordenador e Estrategista",
     avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=150&h=150&auto=format&fit=crop"
   },
   { 
-    texto: "A comunicação saiu do improviso e ganhou planejamento, ritmo e resultado mensurável.", 
-    nome: "Ana Paula Silva", 
-    cargo: "Consultora Política",
+    texto: "Tem leitura de cenário, velocidade de resposta e não foge de crise. É o tipo de profissional que você quer do seu lado quando a eleição aperta.", 
+    nome: "Edinardo Filho", 
+    cargo: "Liderança e Gestor Público",
     avatar: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=150&h=150&auto=format&fit=crop"
   },
 ];

@@ -74,11 +74,11 @@ export default function LandingPage() {
                   Vença a <br />
                   <span className="text-yellow-400">narrativa.</span> <br />
                   Conquiste o <br />
-                  <span className="text-yellow-400">voto.</span>
+                  <span className="text-yellow-400">resultado.</span>
                 </h1>
                 <p className="text-lg leading-relaxed text-zinc-300" style={{ marginTop: "2rem" }}>
-                  Direção de comunicação e estratégia digital para candidatos e
-                  mandatos que buscam relevância, autoridade e vitória nas urnas.
+                  Quando a disputa eleitoral aperta e cada voto conta, 
+                  eu assumo o comando da sua comunicação estratégica.
                 </p>
                 <div 
                   className="flex flex-col justify-center sm:flex-row" 
@@ -99,7 +99,7 @@ export default function LandingPage() {
                     ))}
                   </div>
                   <div className="text-xs font-bold uppercase tracking-widest text-zinc-500">
-                    <span className="text-yellow-400">+12 anos</span> de experiência
+                    Atuação desde <span className="text-yellow-400">2008</span>
                   </div>
                 </div>
               </motion.div>
@@ -397,8 +397,8 @@ export default function LandingPage() {
                       <MessageCircle className="h-6 w-6" />
                     </div>
                     <div>
-                      <div className="text-xs font-bold uppercase tracking-widest text-zinc-500">Atendimento via WhatsApp</div>
-                      <div className="text-lg font-bold text-white">(88) 99341-3974</div>
+                        <div className="text-xs font-bold uppercase tracking-widest text-zinc-500">Atendimento Direto</div>
+                        <div className="text-lg font-bold text-white">(85) 99217-5196</div>
                     </div>
                   </div>
                   <div className="flex items-center" style={{ gap: "16px" }}>
@@ -407,7 +407,7 @@ export default function LandingPage() {
                     </div>
                     <div>
                       <div className="text-xs font-bold uppercase tracking-widest text-zinc-500">Localização física</div>
-                      <div className="text-lg font-bold text-white">Sobral, Ceará</div>
+                        <div className="text-lg font-bold text-white">Ceará</div>
                     </div>
                   </div>
                 </div>

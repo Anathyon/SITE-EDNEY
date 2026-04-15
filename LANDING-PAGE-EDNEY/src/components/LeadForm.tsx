@@ -58,7 +58,7 @@ export function LeadForm() {
 *Mensagem:* ${formData.mensagem}`;
 
     const encodedMessage = encodeURIComponent(waMessage);
-    const whatsappUrl = `https://wa.me/558592175196?text=${encodedMessage}`;
+    const whatsappUrl = `https://wa.me/5585992175196?text=${encodedMessage}`;
 
     try {
       // 1. Enviar para o Email via Web3Forms (Usando FormData para maior compatibilidade)
@@ -123,7 +123,7 @@ export function LeadForm() {
     >
       <div className="flex flex-col items-center text-center" style={{ marginBottom: headerMarginBottom }}>
         <div className="text-xs font-semibold uppercase tracking-[0.2em] text-yellow-300 sm:tracking-[0.22em]">Solicite contato</div>
-        <h3 className="text-xl font-black uppercase text-white sm:text-2xl" style={{ marginTop: "12px" }}>Fale sobre o seu projeto</h3>
+        <h3 className="text-xl font-black uppercase text-white sm:text-2xl" style={{ marginTop: "12px" }}>Vamos transformar sua estratégia?</h3>
         <p className="text-sm leading-7 text-zinc-300" style={{ marginTop: bp === "none" ? "8px" : "12px" }}>Descreva rapidamente o cenário, objetivo e necessidade.</p>
       </div>
 

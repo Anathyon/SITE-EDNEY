@@ -21,12 +21,12 @@ const Youtube = (props: any) => (
   <svg {...props} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.42a2.78 2.78 0 0 0-1.94 2C1 8.11 1 12 1 12s0 3.89.46 5.58a2.78 2.78 0 0 0 1.94 2c1.72.42 8.6.42 8.6.42s6.88 0 8.6-.42a2.78 2.78 0 0 0 1.94-2C23 15.89 23 12 23 12s0-3.89-.46-5.58z"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02"/></svg>
 );
 
-const socialLinks: { icon: any; label: string }[] = [
-  { icon: Instagram, label: "Instagram" },
-  { icon: Facebook, label: "Facebook" },
-  { icon: Linkedin, label: "LinkedIn" },
-  { icon: Youtube, label: "YouTube" },
-  { icon: MessageCircle, label: "WhatsApp" },
+const socialLinks: { icon: any; label: string; href: string }[] = [
+  { icon: Instagram, label: "Instagram", href: "https://instagram.com/edneyeslley" },
+  { icon: Facebook, label: "Facebook", href: "#" },
+  { icon: Linkedin, label: "LinkedIn", href: "#" },
+  { icon: Youtube, label: "YouTube", href: "#" },
+  { icon: MessageCircle, label: "WhatsApp", href: "https://wa.me/5585992175196" },
 ];
 
 const footerNav = [
@@ -100,10 +100,12 @@ export function Footer() {
               className="flex" 
               style={{ gap: socialGap, marginTop: bp === "none" ? "16px" : "24px" }}
             >
-              {socialLinks.map(({ icon: Icon, label }) => (
+              {socialLinks.map(({ icon: Icon, label, href }) => (
                 <a
                   key={label}
-                  href="#"
+                  href={href}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="flex items-center justify-center rounded-lg border border-white/10 bg-white/4 text-zinc-400 transition hover:border-yellow-400/30 hover:bg-yellow-400/10 hover:text-yellow-300 sm:rounded-xl"
                   style={{ width: bp === "none" ? "36px" : "40px", height: bp === "none" ? "36px" : "40px" }}
                   aria-label={label}
