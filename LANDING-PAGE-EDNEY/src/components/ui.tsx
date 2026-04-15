@@ -36,14 +36,34 @@ export function SectionTitle({ eyebrow, title, desc }: { eyebrow: string; title:
 }
 
 /* ──── Photo Card ──── */
-export function PhotoCard({ src, alt, className = "", label, children }: { src: string; alt: string; className?: string; label?: string; children?: ReactNode }) {
+export function PhotoCard({ 
+  src, 
+  alt, 
+  className = "", 
+  label, 
+  objectPosition = "center",
+  children 
+}: { 
+  src: string; 
+  alt: string; 
+  className?: string; 
+  label?: string; 
+  objectPosition?: string;
+  children?: ReactNode 
+}) {
   const bp = useBreakpoint();
   return (
     <motion.div
       {...hoverScale}
       className={`photo-card-hover group relative overflow-hidden rounded-2xl border border-yellow-400/20 bg-zinc-950 shadow-2xl shadow-black/40 sm:rounded-4xl ${className}`}
     >
-      <img src={src} alt={alt} loading="lazy" className="absolute inset-0 h-full w-full object-cover transition duration-500 group-hover:scale-[1.03]" />
+      <img 
+        src={src} 
+        alt={alt} 
+        loading="lazy" 
+        className="absolute inset-0 h-full w-full object-cover transition duration-500 group-hover:scale-[1.03]" 
+        style={{ objectPosition }}
+      />
       <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(0,0,0,0.15),rgba(0,0,0,0.72)),radial-gradient(circle_at_70%_20%,rgba(250,204,21,0.18),transparent_24%)]" />
       {label && (
         <div 

@@ -111,7 +111,13 @@ export default function LandingPage() {
                 className="relative hidden lg:block"
               >
                 <div className="absolute -inset-4 rounded-4xl bg-yellow-400/20 blur-3xl" />
-                <PhotoCard src={heroImg} alt="Edney Eslley" className="h-[640px] w-full" label="Estrategista Chefe" />
+                <PhotoCard 
+                  src={heroImg} 
+                  alt="Edney Eslley" 
+                  className="h-[640px] w-full" 
+                  label="Estrategista Chefe" 
+                  objectPosition="top"
+                />
               </motion.div>
             </div>
           </div>
@@ -195,7 +201,12 @@ export default function LandingPage() {
               style={{ gap: bp === "none" ? "48px" : "80px", marginTop: "80px" }}
             >
               <div className="relative">
-                <PhotoCard src={portraitImg} alt="Edney Eslley Portrait" className="aspect-4/5 w-full lg:aspect-auto lg:h-[600px]" />
+                <PhotoCard 
+                  src={portraitImg} 
+                  alt="Edney Eslley Portrait" 
+                  className="aspect-4/5 w-full lg:aspect-auto lg:h-[600px]" 
+                  objectPosition="top"
+                />
                 <div className="absolute -bottom-6 -right-6 h-32 w-32 rounded-full bg-yellow-400/20 blur-3xl opacity-50" />
               </div>
               
