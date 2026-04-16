@@ -7,7 +7,6 @@ interface Testimonial {
   content: string;
   author: string;
   role: string;
-  avatar: string;
 }
 
 export function TestimonialsCarousel({ items }: { items: Testimonial[] }) {
@@ -27,7 +26,6 @@ export function TestimonialsCarousel({ items }: { items: Testimonial[] }) {
                                       "40px";
   
   const contentGap = bp === "none" ? "20px" : "24px";
-  const authorGap = bp === "none" ? "12px" : "16px";
   const controlsGap = "12px";
 
   return (
@@ -61,13 +59,7 @@ export function TestimonialsCarousel({ items }: { items: Testimonial[] }) {
                 "{items[index].content}"
               </blockquote>
 
-              <div className="flex flex-col items-center" style={{ gap: authorGap, marginTop: "8px" }}>
-                <img 
-                  src={items[index].avatar} 
-                  alt={items[index].author} 
-                  className="rounded-xl object-cover ring-2 ring-white/10 sm:rounded-2xl" 
-                  style={{ width: bp === "none" ? "48px" : "56px", height: bp === "none" ? "48px" : "56px" }}
-                />
+              <div className="flex flex-col items-center" style={{ marginTop: "16px" }}>
                 <div>
                   <div className="text-sm font-black uppercase tracking-widest text-white sm:text-base">{items[index].author}</div>
                   <div className="text-[10px] font-semibold uppercase tracking-widest text-yellow-300 sm:text-xs">{items[index].role}</div>

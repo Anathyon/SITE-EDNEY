@@ -344,8 +344,7 @@ export default function LandingPage() {
               <TestimonialsCarousel items={depoimentos.map(d => ({
                 content: d.texto,
                 author: d.nome,
-                role: d.cargo,
-                avatar: d.avatar
+                role: d.cargo
               }))} />
             </motion.div>
           </div>

@@ -50,7 +50,6 @@ export interface TestimonialItem {
   texto: string;
   nome: string;
   cargo: string;
-  avatar: string;
 }
 
 export interface FAQItem {
@@ -157,20 +156,17 @@ export const depoimentos: TestimonialItem[] = [
   { 
     texto: "Com a entrada do Edney, a comunicação da gestão ganhou um novo fôlego. Em pouco tempo, a nossa imagem estava com um novo ar, um novo tom e um novo ritmo.", 
     nome: "Joel Barroso", 
-    cargo: "Liderança Política",
-    avatar: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?q=80&w=150&h=150&auto=format&fit=crop"
+    cargo: "Liderança Política"
   },
   { 
     texto: "Não entrou apenas para executar. Entrou para conduzir. Tem visão de campo, sabe onde apertar e onde recuar.", 
     nome: "Wilebaldo Melo", 
-    cargo: "Coordenador e Estrategista",
-    avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=150&h=150&auto=format&fit=crop"
+    cargo: "Coordenador e Estrategista"
   },
   { 
     texto: "Tem leitura de cenário, velocidade de resposta e não foge de crise. É o tipo de profissional que você quer do seu lado quando a eleição aperta.", 
     nome: "Edinardo Filho", 
-    cargo: "Liderança e Gestor Público",
-    avatar: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=150&h=150&auto=format&fit=crop"
+    cargo: "Liderança e Gestor Público"
   },
 ];
 
